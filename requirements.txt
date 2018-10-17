@@ -1,2 +1,2 @@
-telepot.py
-emoji.py
+telepot
+emoji
