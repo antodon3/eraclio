@@ -86,8 +86,11 @@ def on_callback_query(msg):
     
 fill_news()
 bot = telepot.Bot("679953746:AAECClhSHfKwnBDfnwO4yO5KWvkccOelWEo")
-bot.message_loop({'chat': on_chat_message,
-                  'callback_query': on_callback_query})
+#bot.message_loop({'chat': on_chat_message,
+#                  'callback_query': on_callback_query})
+MessageLoop(bot, {'chat': on_chat_message,
+				  'callback_query': on_callback_query}).run_as_thread() 
+print('Listening ...')
 
 #bot.getUpdates()
 
