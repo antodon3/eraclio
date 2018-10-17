@@ -85,7 +85,7 @@ def on_callback_query(msg):
 #        urllib.urlopen('http://example.com')
     
 fill_news()
-bot = telepot.Bot(os.getenv('TOKEN'))
+bot = telepot.Bot(os.environ.get('TOKEN', None))
 #bot.message_loop({'chat': on_chat_message,
 #                  'callback_query': on_callback_query})
 MessageLoop(bot, {'chat': on_chat_message,
