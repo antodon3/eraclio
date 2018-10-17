@@ -6,6 +6,7 @@ import sys
 import urllib.request
 import bs4 as bs
 import emoji
+import os
 from pprint import pprint
 
 siti = []
