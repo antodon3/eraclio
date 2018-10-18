@@ -5,9 +5,7 @@ import time
 import urllib.request
 import bs4 as bs
 import emoji
-import json
 import firebase_admin
-import os
 from firebase_admin import credentials, db
 
 siti = []
@@ -87,7 +85,7 @@ def on_chat_message(msg):
     users_ref = ref.child('parole_sconosciute')
     users_ref.update({
         msg['text']: {
-            'data': time.strftime("%d/%m/%Y")+time.strftime("%H:%M:%S")
+            'data': time.strftime("%d/%m/%Y") + " - " + time.strftime("%H:%M:%S")
         }
     })
     bot.sendMessage(chat_id, "Credo di non aver capito")
@@ -99,29 +97,14 @@ def on_callback_query(msg):
 
 
 fill_news()
-bot = telepot.Bot(os.environ.get('TOKEN', None))
+bot = telepot.Bot("679953746:AAECClhSHfKwnBDfnwO4yO5KWvkccOelWEo")
 # bot.message_loop({'chat': on_chat_message,
 #                  'callback_query': on_callback_query})
 MessageLoop(bot, {'chat': on_chat_message,
                   'callback_query': on_callback_query}).run_as_thread()
 print('Listening ...')
 
-data = {
-  "type": "service_account",
-  "project_id": "eracliobot",
-  "private_key_id": "e1ff34ba142505c7afb88e633ed61318603a25e1",
-  "private_key": os.environ.get('KEY_JSON', None), 
-  "client_email": "firebase-adminsdk-7ir6x@eracliobot.iam.gserviceaccount.com",
-  "client_id": "107049067159223043664",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7ir6x%40eracliobot.iam.gserviceaccount.com "
-}
-
-json_data = json.dumps(data)
-
-cred = credentials.Certificate(json_data)
+cred = credentials.Certificate('./serviceAccountKey.json')
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://eracliobot.firebaseio.com/'
 })
