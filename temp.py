@@ -2,13 +2,12 @@ import telepot
 from telepot.loop import MessageLoop
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import time
-import sys
 import urllib.request
 import bs4 as bs
 import emoji
-from pprint import pprint
+import json
 import firebase_admin
-from firebase_admin import credentials, firestore, db
+from firebase_admin import credentials, db
 
 siti = []
 answer = []
@@ -99,14 +98,30 @@ def on_callback_query(msg):
 
 
 fill_news()
-bot = telepot.Bot("679953746:AAECClhSHfKwnBDfnwO4yO5KWvkccOelWEo")
+bot = telepot.Bot(os.environ.get('TOKEN', None))
 # bot.message_loop({'chat': on_chat_message,
 #                  'callback_query': on_callback_query})
 MessageLoop(bot, {'chat': on_chat_message,
                   'callback_query': on_callback_query}).run_as_thread()
 print('Listening ...')
 
-cred = credentials.Certificate('./serviceAccountKey.json')
+data = {{
+  "type": "service_account",
+  "project_id": "eracliobot",
+  "private_key_id": "e1ff34ba142505c7afb88e633ed61318603a25e1",
+  "private_key": os.environ.get('KEY_JSON', None), 
+  "client_email": "firebase-adminsdk-7ir6x@eracliobot.iam.gserviceaccount.com",
+  "client_id": "107049067159223043664",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7ir6x%40eracliobot.iam"
+                          ".gserviceaccount.com "
+}}
+
+json_data = json.dumps(data)
+
+cred = credentials.Certificate(json_data)
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://eracliobot.firebaseio.com/'
 })
