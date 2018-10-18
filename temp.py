@@ -6,6 +6,7 @@ import urllib.request
 import bs4 as bs
 import emoji
 import firebase_admin
+import json
 from firebase_admin import credentials, db
 
 siti = []
@@ -97,19 +98,20 @@ def on_callback_query(msg):
 
 
 fill_news()
-bot = telepot.Bot("679953746:AAECClhSHfKwnBDfnwO4yO5KWvkccOelWEo")
+bot = telepot.Bot(os.environ.get('TOKEN', None))
 # bot.message_loop({'chat': on_chat_message,
 #                  'callback_query': on_callback_query})
 MessageLoop(bot, {'chat': on_chat_message,
                   'callback_query': on_callback_query}).run_as_thread()
 print('Listening ...')
 
-cred = credentials.Certificate('./serviceAccountKey.json')
+d = json.loads(os.environ.get('KEY_JSON', None))
+cred = credentials.Certificate(d)
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://eracliobot.firebaseio.com/'
 })
 
-bot.getUpdates()
+#bot.getUpdates()
 
 while 1:
     time.sleep(3)
