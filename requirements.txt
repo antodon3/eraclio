@@ -2,4 +2,3 @@ telepot
 emoji
 bs4
 firebase_admin
-google-cloud-firestore
