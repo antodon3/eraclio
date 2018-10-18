@@ -7,6 +7,7 @@ import bs4 as bs
 import emoji
 import firebase_admin
 import json
+import os
 from firebase_admin import credentials, db
 
 siti = []
