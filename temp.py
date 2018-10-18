@@ -106,7 +106,7 @@ MessageLoop(bot, {'chat': on_chat_message,
                   'callback_query': on_callback_query}).run_as_thread()
 print('Listening ...')
 
-data = {{
+data = {
   "type": "service_account",
   "project_id": "eracliobot",
   "private_key_id": "e1ff34ba142505c7afb88e633ed61318603a25e1",
@@ -117,7 +117,7 @@ data = {{
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
   "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-7ir6x%40eracliobot.iam.gserviceaccount.com "
-}}
+}
 
 json_data = json.dumps(data)
 
