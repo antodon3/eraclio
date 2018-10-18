@@ -7,7 +7,6 @@ import urllib.request
 import bs4 as bs
 import emoji
 from pprint import pprint
-from firebase import firebase
 import firebase_admin
 from firebase_admin import credentials, firestore, db
 
